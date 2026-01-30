@@ -1,0 +1,8 @@
+    alice_generació_de_claus.js : genera dos arxius amb les claus públiques i privades d'Alice.
+    bob_generació_de_claus.js: genera dos arxius amb les claus públiques i privades de Bob
+    alice_encripta_missatge.js: Alice encripta un missatge (ha d'estar en un fitxer) per tal que només en bob pugui desencriptar-lo. Guardeu ho en un arxiu.
+    bob_desencripta_missatge.js: Bob desencripta el missatge de l'Alice guardat en un arxiu. Crea un altre amb arxiu amb el resultat.  
+    bob_signa_missatge.js: Bob signa un missatge (ha d'estar en un fitxer), guarda la signatura en un fitxer. 
+    alice_verifica_missatge.js: Alice agafa el missatge d'en  Bob i la seva signatura i  els  verifica. 
+    alice_encripta_signa_missatge.js: Alice encripta un missatge  (ha d'estar en  un  fitxer) per tal que només en bob pugui desencriptar-ho, i ho signa per tal que es pugui  validar  que el missatge l'envia ella i únicament ella. Fer un objecte json, on un camp  es el missatge encriptat i  l'altre camp es  la signatura i  guarde-ho en un fitxer. 
+    bob_desencripta_valida_missatge.js: Agafeu el fitxer generat anteriorment en format json, desencripta el missatge i valida que ho ha fet l'alice.
