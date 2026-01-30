@@ -1,7 +1,7 @@
 const fs = require('fs');
-const { execSync } = require('child_process');
+const { fork } = require('child_process');
 
-const messageFiles = [ //Es pot fer manualment o canviar el missatge aqui
+const messageFiles = [
   {
     name: 'missatge_alice.txt',
     content: 'Missatge secret d’Alice per Bob.'
@@ -16,6 +16,13 @@ const messageFiles = [ //Es pot fer manualment o canviar el missatge aqui
   }
 ];
 
+// Crear fitxers si no existeixen
+messageFiles.forEach(file => {
+  if (!fs.existsSync(file.name)) {
+    fs.writeFileSync(file.name, file.content);
+  }
+});
+
 const scripts = [
   'alice_generacio_de_claus.js',
   'bob_generacio_de_claus.js',
@@ -27,15 +34,24 @@ const scripts = [
   'bob_desencripta_valida_missatge.js'
 ];
 
-messageFiles.forEach(file => {
-  if (!fs.existsSync(file.name)) {
-    fs.writeFileSync(file.name, file.content);
-  }
-});
+function runScript(index) {
+  if (index >= scripts.length) return;
 
-scripts.forEach(script => {
+  const script = scripts[index];
+
   if (!fs.existsSync(script)) {
     throw new Error(`No existeix el fitxer ${script}`);
   }
-  execSync(`node ${script}`, { stdio: 'inherit' });
-});
+
+  const child = fork(script);
+
+  child.on('exit', code => {
+    if (code !== 0) {
+      console.error(`El script ${script} ha fallat amb codi ${code}`);
+      process.exit(code);
+    }
+    runScript(index + 1);
+  });
+}
+
+runScript(0);
