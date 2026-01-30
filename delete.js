@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-//Aixo borra els arxius generats
+//Aixo borrarà els arxius generats
 const filesToDelete = [
   'alice_public.pem',
   'alice_private.pem',
